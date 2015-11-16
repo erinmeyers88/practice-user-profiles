@@ -1,5 +1,4 @@
-module.exports = {
-    users: [
+var users = [
     {
         name: 'Preston McNeil',
         password: 'password1',
@@ -20,18 +19,24 @@ module.exports = {
         password: '777mittens777',
         friends: ['Preston McNeil', 'Ryan Rasmussen', 'Terri Ruff']
     }
-],
+];
 
-login: function (req, res, next) {
-    this.users.forEach(function (user) {
-        if (user.name === req.body.name && user.password === req.body.password) {
+
+module.exports = {
+
+
+    login: function (req, res, next) {
+        console.log(req.body);
+        var found = false;
+        users.forEach(function (user) {
+            if (user.name === req.body.userName && user.password === req.body.password) {
                 req.session.currentUser = user;
-                res.send({userFound: true});
-        } else {
-            res.send({userFound: false});
-        }
-    });
+                found = true;
 
-},
-    
+            }
+        });
+        res.send({ userFound: found });
+
+    }
+
 };

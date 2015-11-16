@@ -1,5 +1,4 @@
-module.exports = {
-    profiles: [
+   var profiles = [
     {
         name: 'Preston McNeil',
         pic: 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/1117694_1614542_108355616_q.jpg',
@@ -20,13 +19,27 @@ module.exports = {
         pic: 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash3/173210_10024969_2137324550_q.jpg',
         status: 'OMG MITTENS DID THE CUTEST THING TODAY'
     }
-],
+];
 
-   getProfile: function (req, res, next) {
-       var profile = {};
-       profile.currentUser = req.session.currentUser;
-       profile.friends.push(req.session.currentUser.friends);
-       res.status(200).send(profile);
-   } 
+module.exports = {
+ 
     
+getFriends: function( req, res ) {
+        var friendsArray = [];
+        req.session.currentUser.friends.forEach(function( friend ) {
+            profiles.forEach(function( profile ) {
+                if (friend === profile.name) {
+                    friendsArray.push(profile);
+                }
+            });
+        });
+
+        res.send({
+            currentUser: req.session.currentUser,
+            friends: friendsArray
+        });
+   
+    
+}
+
 };

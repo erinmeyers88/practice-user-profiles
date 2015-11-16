@@ -9,6 +9,8 @@ var userCtrl = require("./controllers/userCtrl.js");
 
 var app = express();
 
+app.use(express.static(__dirname + "/public"));
+
 app.use(bodyParser.json());
 
 
@@ -21,15 +23,11 @@ app.use(cors(corsOptions));
 
 app.use(session({ secret: config.sessionSecret }));
 
-app.use(express.static(__dirname + "/public"));
 
-app.post("/api/login", function (req, res, next) {
-	userCtrl.login(req, res, next);
-});
 
-app.get("api/profiles", function (req, res, next) {
-	profileCtrl.getProfile(req, res, next);
-});
+app.post("/api/login", userCtrl.login);
+
+app.get("/api/profiles", profileCtrl.getFriends);
 
 
 app.listen(port, function () {
