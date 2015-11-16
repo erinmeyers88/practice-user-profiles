@@ -7,8 +7,8 @@ angular.module('userProfiles')
        method: "POST",
        url: "/api/login",
        data: user
-        
       }); 
     }
+    
   };
 });

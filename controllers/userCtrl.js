@@ -26,13 +26,11 @@ module.exports = {
 
 
     login: function (req, res, next) {
-        console.log(req.body);
         var found = false;
         users.forEach(function (user) {
             if (user.name === req.body.userName && user.password === req.body.password) {
                 req.session.currentUser = user;
                 found = true;
-
             }
         });
         res.send({ userFound: found });
