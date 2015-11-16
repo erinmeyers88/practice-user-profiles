@@ -21,7 +21,7 @@ app.use(cors(corsOptions));
 
 app.use(session({ secret: config.sessionSecret }));
 
-
+app.use(express.static(__dirname + "/public"));
 
 app.post("/api/login", function (req, res, next) {
 	userCtrl.login(req, res, next);
@@ -30,6 +30,7 @@ app.post("/api/login", function (req, res, next) {
 app.get("api/profiles", function (req, res, next) {
 	profileCtrl.getProfile(req, res, next);
 });
+
 
 app.listen(port, function () {
 	console.log("Listening on port " + port);
